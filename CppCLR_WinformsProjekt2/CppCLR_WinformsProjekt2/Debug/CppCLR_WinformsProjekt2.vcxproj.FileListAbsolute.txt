@@ -1,0 +1,3 @@
+C:\Users\Acer\source\repos\CppCLR_WinformsProjekt2\CppCLR_WinformsProjekt2\Debug\CppCLR_WinformsProjekt2.vcxprojAssemblyReference.cache
+C:\Users\Acer\source\repos\CppCLR_WinformsProjekt2\CppCLR_WinformsProjekt2\Debug\CppCLR_WinformsProjekt2.Form1.resources
+C:\Users\Acer\source\repos\CppCLR_WinformsProjekt2\CppCLR_WinformsProjekt2\Debug\CppCLR_WinformsProjekt2.vcxproj.GenerateResource.cache
