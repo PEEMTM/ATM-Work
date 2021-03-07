@@ -1,0 +1,8 @@
+﻿  pch.cpp
+  AssemblyInfo.cpp
+  CppCLR_WinformsProjekt.cpp
+  Form1.cpp
+  Generating Code...
+  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
+  AssemblyInfo.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+  CppCLR_WinformsProjekt1.vcxproj -> C:\Users\Acer\source\repos\CppCLR_WinformsProjekt1\x64\Debug\CppCLR_WinformsProjekt1.exe
