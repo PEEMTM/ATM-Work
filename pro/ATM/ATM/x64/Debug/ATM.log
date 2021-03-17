@@ -1,2 +1,4 @@
 ﻿  Source.cpp
-  ATM.vcxproj -> C:\Users\Acer\OneDrive\เดสก์ท็อป\ATM-Work\pro\ATM\x64\Debug\ATM.exe
+C:\Users\Acer\OneDrive\เดสก์ท็อป\ATM-Work\pro\ATM\ATM\Source.cpp(92,5): error C2059: syntax error: 'return'
+C:\Users\Acer\OneDrive\เดสก์ท็อป\ATM-Work\pro\ATM\ATM\Source.cpp(93,1): error C2059: syntax error: '}'
+C:\Users\Acer\OneDrive\เดสก์ท็อป\ATM-Work\pro\ATM\ATM\Source.cpp(93,1): error C2143: syntax error: missing ';' before '}'
