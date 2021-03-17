@@ -61,21 +61,28 @@ void importDataFromFile(string fn,vector<string> &names,vector<float> &moneys,ve
     list.close();
 }
 
+void waiting(unsigned int mseconds){
+		clock_t goal = mseconds + clock();
+		while (goal > clock());
+	}
+
 void receipt(){
 		system("cls");
-	time_t rawtime;
-    struct tm * local;
-    time(&rawtime);
-    local = localtime(&rawtime);
+			char date[9];
+			char time[9];
+			_strdate(date);
+			_strtime(time);
 
 			cout << "\n\n\t\t\t\t\t PRINTING RECEIPT . . .\n";
+			waiting(2500);
 			system("cls");
-			cout << endl <<"\n\n\t\t\t|\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2  \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2|";
+			cout << endl <<"\n\n\t\t\t|\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2              \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2|";
 			cout << "\n\t\t\t|\t\t\t\t\t      |"
 				 << "\n\t\t\t|\t     ATM TRANSACTION RECORD\t      |"
 				 << "\n\t\t\t|\t\t\t\t\t      |"
-				 << "\n\t\t\t|DATE:\t\t\t    "<<local->tm_mday<<":"<<local->tm_mon<<":"<< local->tm_year <<"\t      |"
-				 << "\n\t\t\t|TIME:\t\t\t    "<<local->tm_hour<<":"<<local->tm_min<<":"<< local->tm_sec <<"\t      |";
+				 << "\n\t\t\t|DATE:\t\t\t       "<<date<<"\t      |"
+				 << "\n\t\t\t|TIME:\t\t\t       "<<time<<"\t      |";
+				
 }
 
 void searchName(vector<string> &names,vector<float> &moneys,vector<string> &stats,vector<float> &balances,string key){
@@ -114,6 +121,10 @@ void Deposit(vector<string> &names,vector<float> &moneys,string key){
             write(sname,deposit,status,moneys[m]);
     if(status != "add") cout << "Cannot found." << endl;
     cout << "---------------------------------\n";
+    
+   	system("cls");
+	receipt();
+	cout << "\n\t\t\t|Balance:\t\t       " << moneys[m] <<"\t      |";
 }
 void Withdraw(vector<string> &names,vector<float> &moneys,string key){
     int N = names.size();
@@ -138,7 +149,7 @@ void Withdraw(vector<string> &names,vector<float> &moneys,string key){
     
 	system("cls");
 	receipt();
-	cout << moneys[m];
+	cout << "\n\t\t\t|Balance:\t\t  " << moneys[m] <<"\t      |";
 }
 
 void Transfer(vector<string> &names,vector<float> &moneys,string key){
@@ -181,9 +192,9 @@ void Transfer(vector<string> &names,vector<float> &moneys,string key){
             write(sname,transfer,status,moneys[m]);
     cout << "---------------------------------\n";
     
-    system("cls");
+	system("cls");
 	receipt();
-	cout << moneys[m];
+	cout << "\n\t\t\t|Balance:\t\t  " << moneys[m] <<"\t      |";
 }
 
 void Balance(vector<string> &names,vector<float> &balances,string key){
