@@ -182,7 +182,7 @@ void Transfer(vector<string> &names,vector<int> &spass,vector<float> &balances,s
     	if(t!=0){
 			stat="true";
 			break;
-    	}else cout<<"Cannot found. Plase input agian: "<<endl;
+    	}else cout<<"Cannot found. Plase input agian: ";
 	}while(true);
     cout <<"How much will you transfer? ";
         	cin>>transfer;
@@ -192,7 +192,7 @@ void Transfer(vector<string> &names,vector<int> &spass,vector<float> &balances,s
             status = "withdraw";}
             write(sname,spass[m],transfer,status,balances[m]);
             balances[t] += transfer;
-            status = "deposit";
+            status = "add";
             write(tname,spass[t],transfer,status,balances[t]);
     cout << "\n\n---------------------------------";
     
