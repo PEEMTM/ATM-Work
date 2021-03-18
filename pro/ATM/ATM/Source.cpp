@@ -63,15 +63,15 @@ int main()
 	vector<string> stats;
 	vector<double> balances;
 
-	string text, c, key;
-	int m;
+	string text = {}, c = {}, key = {};
+	int m = 0;
 	char name[100], stat[10];
 	double balance = 0;
 	fstream list("List.txt", ios::in);
 	while (getline(list, text)) {
-		int pass;
-		double money;
-		char ctext[100];
+		int pass = 0;
+		double money = 0;
+		char ctext[100] = {};
 		char format[] = "%[^,],%d,%f,%[^,],%f";
 		strcpy_s(ctext, text.c_str());
 		sscanf_s(ctext, format, name, &pass, &money, stat, &balance);
@@ -216,8 +216,7 @@ int main()
 				//รวมเงินเก่ากับใหม่
 				if (event.key.code == sf::Keyboard::Return && event.type == event.KeyPressed) {
 					int N = sizeof(names);
-					double a;
-					cout << "---------------------------------\n\n";
+					double a = 0;
 					for (int i = 0; i < N; i++) {
 						if (key == toUpperStr(names[i])) {
 							m = i;
