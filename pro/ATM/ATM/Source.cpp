@@ -1,9 +1,16 @@
-#include <SFML/Graphics.hpp>
+﻿#include <SFML/Graphics.hpp>
 #include<iostream>
+#include<sstream>
+#include <time.h>
 
 using namespace std;
 using namespace sf;
 
+
+void waiting(unsigned int mseconds) {
+	clock_t goal = mseconds + clock();
+	while (goal > clock());
+}
 int main()
 {
 	Texture x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16;
@@ -18,32 +25,43 @@ int main()
 	x9.loadFromFile("image/exitbutton.png");
 	x10.loadFromFile("image/transaction.png");
 	x11.loadFromFile("image/depositbg.png");
-	x11.loadFromFile("image/withdrawbg.png");
-	x11.loadFromFile("image/tranferbg.png");
-	x11.loadFromFile("image/checkbg.png");
-	x11.loadFromFile("image/viewbg.png");
-
+	x12.loadFromFile("image/withdrawbg.png");
+	x13.loadFromFile("image/transferbg.png");
+	x14.loadFromFile("image/checkbg.png");
+	x15.loadFromFile("image/viewbg.png");
+	x16.loadFromFile("image/checknowbg.png");
 
 	sf::RenderWindow window(sf::VideoMode(1000, 802), "SFML works!");
 
 	Sprite Background(x1), login(x2), loginbotton1(x3), transaction(x10), exitbutton(x9), viewbutton(x8), tranferbutton(x7), checkbutton(x6), withdrawbutton(x5), depositbutton(x4);
 
 
-	enum States { swelcome, slogin, stransaction, depositbg ,withdrawbg,tranferbg,checkbg,viewbg };
+	enum States { swelcome, slogin, stransaction, depositbg ,withdrawbg,tranferbg,checkbg,viewbg,checknowbg };
 	short unsigned currentState = swelcome;
-	Text username, password, * textPtr = &username;
+	Text username, password,moneynow,inputmoney, * textPtr = &username;
 	Font font;
 	font.loadFromFile("font/roboto/Roboto-Black.ttf");
 	username.setFont(font);
 	username.setCharacterSize(55);
 	password.setFont(font);
 	password.setCharacterSize(55);
+	moneynow.setFont(font);
+	moneynow.setCharacterSize(55);
+	inputmoney.setFont(font);
+	inputmoney.setCharacterSize(55);
 	string username1 = "";
 	username.setPosition(526, 410);
+	//string moneynow = ดึงไฟล์เงินมาใส่
+	string inputmoney1 = "";
 	string password1 = "";
 	string star = "";
 	string* textbox1 = &username1;
 	password.setPosition(526, 580);
+	moneynow.setPosition(705,420);
+	inputmoney.setPosition(705, 530);
+	inputmoney.setFillColor(Color(0, 92, 168, 255));
+	Clock clock;
+	Time time;
 
 	while (window.isOpen())
 	{
@@ -58,6 +76,7 @@ int main()
 				if (depositbutton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
 					if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
 						currentState = depositbg;
+						
 					}
 				}
 				if (withdrawbutton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
@@ -68,6 +87,10 @@ int main()
 				if (tranferbutton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
 					if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
 						currentState = tranferbg;
+						textPtr = &username;
+						textbox1 = &username1;
+						username1 = "";
+						username.setString(username1);
 					}
 				}
 				if (checkbutton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
@@ -120,9 +143,10 @@ int main()
 				}
 
 				for (int i = 0; i < password1.size(); i++) {
+					
 					star += "*";
-				}
 
+				}
 				password.setString(star);
 
 				if (event.key.code == sf::Keyboard::BackSpace && event.type == event.KeyPressed) {
@@ -131,16 +155,130 @@ int main()
 						textPtr->setString(*textbox1);
 					}
 				}
-
 				if (loginbotton1.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
 					if (Mouse::isButtonPressed(Mouse::Left)) {
 						currentState = stransaction;
 					}
 				}
 			}
+			if (currentState == depositbg) {
+				textPtr = &inputmoney;
+				textbox1 = &inputmoney1;
+				
+				if (FloatRect(705.f, 420.f, 256.f, 116.f).contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
+					if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
+						textbox1 = &inputmoney1;
+						textPtr = &inputmoney;
+					}
+				}
+
+				if (event.type == sf::Event::TextEntered) {
+					if (event.text.unicode >= 48 && event.text.unicode <= 57 && event.text.unicode != 8) {
+						if (textPtr == &inputmoney && textbox1->size() < 7)
+						{
+							*textbox1 += event.text.unicode;
+							textPtr->setString(*textbox1);
+						}
+					}
+				}
+				if (event.key.code == sf::Keyboard::BackSpace && event.type == event.KeyPressed) {
+					if (!textbox1->empty()) {
+						textbox1->erase(textbox1->end() - 1);
+						textPtr->setString(*textbox1);
+					}
+				}
+				//รวมเงินเก่ากับใหม่
+				if (event.key.code == sf::Keyboard::Enter && event.type == event.KeyPressed) {
+					currentState = checknowbg;
+				}
+				
+			}
+
+			if (currentState == withdrawbg) {
+				textPtr = &inputmoney;
+				textbox1 = &inputmoney1;
+
+				if (FloatRect(705.f, 420.f, 256.f, 116.f).contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
+					if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
+						textbox1 = &inputmoney1;
+						textPtr = &inputmoney;
+					}
+				}
+
+				if (event.type == sf::Event::TextEntered) {
+					if (event.text.unicode >= 48 && event.text.unicode <= 57 && event.text.unicode != 8) {
+						if (textPtr == &inputmoney && textbox1->size() < 7)
+						{
+							*textbox1 += event.text.unicode;
+							textPtr->setString(*textbox1);
+						}
+					}
+				}
+				if (event.key.code == sf::Keyboard::BackSpace && event.type == event.KeyPressed) {
+					if (!textbox1->empty()) {
+						textbox1->erase(textbox1->end() - 1);
+						textPtr->setString(*textbox1);
+					}
+				}
+				//รวมเงินเก่ากับใหม่
+				if (event.key.code == sf::Keyboard::Enter && event.type == event.KeyPressed) {
+					currentState = checknowbg;
+				}
+				
+			}
+			// tranfer
+			if (currentState == tranferbg) {
+				
+				if (FloatRect(685.f, 450.f, 283.f, 101.f).contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
+					if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
+						textbox1 = &username1;
+						textPtr = &username;
+					}
+				}
+				if (FloatRect(685.f, 600.f,283.f, 101.f).contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
+					if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
+						textbox1 = &inputmoney1;
+						textPtr = &inputmoney;
+					}
+				}
+
+				if (event.type == sf::Event::TextEntered) {
+					if (event.text.unicode != 8) {
+						if (textPtr == &inputmoney && textbox1->size() < 7 && event.text.unicode >= 48 && event.text.unicode <= 57)
+						{
+							*textbox1 += event.text.unicode;
+							textPtr->setString(*textbox1);
+						}
+					 else if (textPtr == &username && textbox1->size() < 8)
+						{
+							*textbox1 += event.text.unicode;
+							textPtr->setString(*textbox1);
+						}
+					}
+				}
+				if (event.key.code == sf::Keyboard::BackSpace && event.type == event.KeyPressed) {
+					if (!textbox1->empty()) {
+						textbox1->erase(textbox1->end() - 1);
+						textPtr->setString(*textbox1);
+					}
+				}
+
+				//รวมเงินเก่ากับใหม่
+				if (event.key.code == sf::Keyboard::Enter && event.type == event.KeyPressed) {
+					currentState = checknowbg;
+				}
+				
+			}
+			/*เช็คเงิน
+			if (currentState == checkbg) {
+				
+				// moneynow = น่าจะ moneys ที่อ่านจากไฟล์
+			}*/
+
+
 		}
 
-
+		cout << star<<endl;
 		window.clear();
 
 		switch (currentState)
@@ -180,8 +318,68 @@ int main()
 			window.draw(depositbutton);
 
 			break;
-		}
 
+		case depositbg:
+			Background.setTexture(x11);
+			window.draw(Background);
+			window.draw(moneynow);
+			window.draw(inputmoney);
+			break;
+
+		case withdrawbg:
+			Background.setTexture(x12);
+			window.draw(Background);
+			window.draw(moneynow);
+			window.draw(inputmoney);
+			break;
+		
+		case tranferbg:
+			Background.setTexture(x13);
+			window.draw(Background);
+			moneynow.setPosition(685, 300);
+			username.setPosition(685, 450);
+			inputmoney.setPosition(685, 600);
+			window.draw(moneynow);
+			window.draw(username);
+			window.draw(inputmoney);
+			break;
+
+		case checkbg:
+			Background.setTexture(x14);
+			window.draw(Background);
+			moneynow.setPosition(400, 695);
+			window.draw(moneynow);
+			window.display();
+			waiting(5000);
+			window.close();
+			break;
+
+		case viewbg:
+			Background.setTexture(x15);
+			window.draw(Background);
+			window.display();
+			waiting(5000);
+			window.close();
+			break;
+
+		case checknowbg:
+			Background.setTexture(x16);
+			window.draw(Background);
+			moneynow.setPosition(400, 695);
+			window.display();
+			waiting(5000);
+			window.close();
+			break;
+
+		}
+		Text mouseText;
+		mouseText.setPosition(window.mapPixelToCoords(Mouse::getPosition(window)));
+		mouseText.setFont(font);
+		mouseText.setCharacterSize(20);
+		stringstream ss;
+		ss << window.mapPixelToCoords(Mouse::getPosition(window)).x << " " << window.mapPixelToCoords(Mouse::getPosition(window)).y;
+		mouseText.setString(ss.str());
+		window.draw(mouseText);
 
 		window.display();
 	}
