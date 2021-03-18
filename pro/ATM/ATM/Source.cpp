@@ -156,7 +156,7 @@ int main()
 		case slogin:
 			Background.setTexture(x2);
 			window.draw(Background);
-			loginbotton1.setPosition(750, 630);
+			loginbotton1.setPosition(760, 670);
 			window.draw(loginbotton1);
 			window.draw(username);
 			window.draw(password);
@@ -179,32 +179,6 @@ int main()
 			window.draw(withdrawbutton);
 			window.draw(depositbutton);
 
-			break;
-
-		case depositbg:
-			Background.setTexture(x11);
-			window.draw(Background);
-			break;
-
-
-		case withdrawbg:
-			Background.setTexture();
-			window.draw(Background);
-			break;
-
-		case tranferbg:
-			Background.setTexture();
-			window.draw(Background);
-			break;
-
-		case checkbg:
-			Background.setTexture();
-			window.draw(Background);
-			break;
-
-		case viewbg:
-			Background.setTexture();
-			window.draw(Background);
 			break;
 		}
 
