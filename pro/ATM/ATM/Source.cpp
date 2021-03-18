@@ -13,11 +13,15 @@ int main()
 	x4.loadFromFile("image/depositbutton.png");
 	x5.loadFromFile("image/withdrawbutton.png");
 	x6.loadFromFile("image/checkbutton.png");
-	x7.loadFromFile("image/tranferbutton.png");
+	x7.loadFromFile("image/transferbutton.png");
 	x8.loadFromFile("image/viewbutton.png");
 	x9.loadFromFile("image/exitbutton.png");
 	x10.loadFromFile("image/transaction.png");
 	x11.loadFromFile("image/depositbg.png");
+	x11.loadFromFile("image/withdrawbg.png");
+	x11.loadFromFile("image/tranferbg.png");
+	x11.loadFromFile("image/checkbg.png");
+	x11.loadFromFile("image/viewbg.png");
 
 
 	sf::RenderWindow window(sf::VideoMode(1000, 802), "SFML works!");
@@ -25,7 +29,7 @@ int main()
 	Sprite Background(x1), login(x2), loginbotton1(x3), transaction(x10), exitbutton(x9), viewbutton(x8), tranferbutton(x7), checkbutton(x6), withdrawbutton(x5), depositbutton(x4);
 
 
-	enum States { swelcome, slogin, stransaction, soutput };
+	enum States { swelcome, slogin, stransaction, depositbg ,withdrawbg,tranferbg,checkbg,viewbg };
 	short unsigned currentState = swelcome;
 	Text username, password, * textPtr = &username;
 	Font font;
@@ -53,27 +57,27 @@ int main()
 			if (currentState == stransaction) {
 				if (depositbutton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
 					if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
-						currentState = soutput;
+						currentState = depositbg;
 					}
 				}
 				if (withdrawbutton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
 					if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
-						currentState = soutput;
+						currentState = withdrawbg;
 					}
 				}
 				if (tranferbutton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
 					if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
-						currentState = soutput;
+						currentState = tranferbg;
 					}
 				}
 				if (checkbutton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
 					if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
-						currentState = soutput;
+						currentState = checkbg;
 					}
 				}
 				if (viewbutton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
 					if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
-						currentState = soutput;
+						currentState = viewbg;
 					}
 				}
 				if (exitbutton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
@@ -81,6 +85,7 @@ int main()
 						window.close();
 					}
 				}
+				
 			}
 			
 			if (currentState == slogin) {
@@ -161,12 +166,12 @@ int main()
 		case stransaction:
 			Background.setTexture(x10);
 			window.draw(Background);
-			exitbutton.setPosition(310, 100);
-			viewbutton.setPosition(240, 300);
-			checkbutton.setPosition(320, -100);
-			tranferbutton.setPosition(-310, 300);
-			withdrawbutton.setPosition(-300, 100);
-			depositbutton.setPosition(-310, -100);
+			exitbutton.setPosition(625, 450);
+			viewbutton.setPosition(465, 650);
+			checkbutton.setPosition(625, 250);
+			tranferbutton.setPosition(0, 650);
+			withdrawbutton.setPosition(0, 450);
+			depositbutton.setPosition(0, 250);
 			window.draw(exitbutton);
 			window.draw(viewbutton);
 			window.draw(checkbutton);
@@ -176,8 +181,29 @@ int main()
 
 			break;
 
-		case soutput:
+		case depositbg:
 			Background.setTexture(x11);
+			window.draw(Background);
+			break;
+
+
+		case withdrawbg:
+			Background.setTexture();
+			window.draw(Background);
+			break;
+
+		case tranferbg:
+			Background.setTexture();
+			window.draw(Background);
+			break;
+
+		case checkbg:
+			Background.setTexture();
+			window.draw(Background);
+			break;
+
+		case viewbg:
+			Background.setTexture();
 			window.draw(Background);
 			break;
 		}
