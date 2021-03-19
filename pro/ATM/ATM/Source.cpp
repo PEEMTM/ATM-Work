@@ -1,5 +1,13 @@
 ﻿#include <SFML/Graphics.hpp>
 #include<iostream>
+#include<fstream>
+#include<vector>
+#include<string>
+#include<cstdlib>
+#include<cstring>
+#include<iomanip>
+#include <stdio.h>
+#include <time.h>
 #include<sstream>
 #include <time.h>
 
@@ -11,6 +19,7 @@ void waiting(unsigned int mseconds) {
 	clock_t goal = mseconds + clock();
 	while (goal > clock());
 }
+
 int main()
 {
 	Texture x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16;
@@ -60,8 +69,6 @@ int main()
 	moneynow.setPosition(705,420);
 	inputmoney.setPosition(705, 530);
 	inputmoney.setFillColor(Color(0, 92, 168, 255));
-	Clock clock;
-	Time time;
 
 	while (window.isOpen())
 	{
@@ -110,7 +117,7 @@ int main()
 				}
 				
 			}
-			
+//login			
 			if (currentState == slogin) {
 				star = "";
 
@@ -157,10 +164,11 @@ int main()
 				}
 				if (loginbotton1.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
 					if (Mouse::isButtonPressed(Mouse::Left)) {
-						currentState = stransaction;
-					}
+								currentState = stransaction;
+							}
+						}
 				}
-			}
+//ฝาก
 			if (currentState == depositbg) {
 				textPtr = &inputmoney;
 				textbox1 = &inputmoney1;
@@ -193,7 +201,7 @@ int main()
 				}
 				
 			}
-
+//ถอน
 			if (currentState == withdrawbg) {
 				textPtr = &inputmoney;
 				textbox1 = &inputmoney1;
@@ -220,13 +228,13 @@ int main()
 						textPtr->setString(*textbox1);
 					}
 				}
-				//รวมเงินเก่ากับใหม่
+//รวมเงินเก่ากับใหม่
 				if (event.key.code == sf::Keyboard::Enter && event.type == event.KeyPressed) {
 					currentState = checknowbg;
 				}
 				
 			}
-			// tranfer
+// โอน
 			if (currentState == tranferbg) {
 				
 				if (FloatRect(685.f, 450.f, 283.f, 101.f).contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
@@ -269,13 +277,18 @@ int main()
 				}
 				
 			}
-			/*เช็คเงิน
+/*เช็คเงิน
 			if (currentState == checkbg) {
 				
 				// moneynow = น่าจะ moneys ที่อ่านจากไฟล์
 			}*/
 
+/*	ประวัติ		
+			if (currentState == viewbg) {
+				ไม่รู้ว่ามึงจะแสดงไรบ้าง
+			}
 
+*/
 		}
 
 		cout << star<<endl;
@@ -322,13 +335,14 @@ int main()
 		case depositbg:
 			Background.setTexture(x11);
 			window.draw(Background);
-			window.draw(moneynow);
+			moneynow.setPosition(720, 330);
 			window.draw(inputmoney);
 			break;
 
 		case withdrawbg:
 			Background.setTexture(x12);
 			window.draw(Background);
+			moneynow.setPosition(720, 330);
 			window.draw(moneynow);
 			window.draw(inputmoney);
 			break;
@@ -336,7 +350,7 @@ int main()
 		case tranferbg:
 			Background.setTexture(x13);
 			window.draw(Background);
-			moneynow.setPosition(685, 300);
+			moneynow.setPosition(700, 315);
 			username.setPosition(685, 450);
 			inputmoney.setPosition(685, 600);
 			window.draw(moneynow);
@@ -347,11 +361,12 @@ int main()
 		case checkbg:
 			Background.setTexture(x14);
 			window.draw(Background);
-			moneynow.setPosition(400, 695);
+			moneynow.setPosition(400, 625);
 			window.draw(moneynow);
 			window.display();
 			waiting(5000);
 			window.close();
+			
 			break;
 
 		case viewbg:
@@ -360,15 +375,18 @@ int main()
 			window.display();
 			waiting(5000);
 			window.close();
+
 			break;
 
 		case checknowbg:
 			Background.setTexture(x16);
 			window.draw(Background);
-			moneynow.setPosition(400, 695);
+			moneynow.setPosition(400, 625);
 			window.display();
 			waiting(5000);
 			window.close();
+			
+			
 			break;
 
 		}
